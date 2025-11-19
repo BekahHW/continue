@@ -1,0 +1,716 @@
+# Interactive Task Component Specification
+
+## Overview
+
+The `ContinueTask` component allows users to run tasks directly from documentation into their Continue extension. This creates an interactive learning experience where users can immediately try examples.
+
+---
+
+## Component API
+
+### TypeScript Interface
+
+```typescript
+interface ContinueTaskProps {
+  // Required
+  title: string;                    // Task display name
+  prompt: string;                   // The actual prompt to send to Continue
+  mode: 'chat' | 'agent' | 'plan' | 'edit'; // Continue mode to use
+
+  // Optional
+  description?: string;              // Brief description of what task does
+  category?: string;                 // Category for filtering (debugging, testing, etc.)
+  estimatedTime?: string;            // "2-5 minutes"
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  prerequisites?: string[];          // What user needs before running
+  expectedOutcome?: string;          // What will happen after running
+  tags?: string[];                   // For search/filtering
+  contextProviders?: string[];       // Suggested context (e.g., ['@CurrentFile', '@Terminal'])
+}
+```
+
+---
+
+## Usage Examples
+
+### Basic Task
+
+```mdx
+<ContinueTask
+  title="Fix TypeScript Errors"
+  prompt="Scan @CurrentFile for TypeScript errors and fix them."
+  mode="agent"
+/>
+```
+
+### Detailed Task
+
+```mdx
+<ContinueTask
+  title="Generate Unit Tests"
+  prompt="Create comprehensive unit tests for this function using Jest. Include happy path, edge cases, and error conditions."
+  mode="agent"
+  description="Automatically generate complete test coverage for your function"
+  category="testing"
+  estimatedTime="3-5 minutes"
+  difficulty="beginner"
+  prerequisites={[
+    "Jest installed in project",
+    "Function code highlighted or @File reference in prompt"
+  ]}
+  expectedOutcome="A new test file with comprehensive unit tests"
+  tags={["testing", "jest", "automation"]}
+  contextProviders={["@CurrentFile", "@File"]}
+/>
+```
+
+---
+
+## Component Behavior
+
+### When Continue is Connected
+
+1. **Detect Connection:** Component checks if Continue extension is active
+2. **Show "Run in Continue" button:** Primary CTA
+3. **On Click:**
+   - Open Continue panel in user's IDE
+   - Switch to specified mode (chat/agent/plan/edit)
+   - Insert prompt into input field
+   - Optionally auto-submit or let user review first
+
+### When Continue is NOT Connected
+
+1. **Show "Copy Prompt" button:** Secondary CTA
+2. **Display Install CTA:** Link to installation page
+3. **On Copy Click:**
+   - Copy prompt to clipboard
+   - Show success toast: "Prompt copied! Install Continue to run it directly."
+
+---
+
+## Visual Design
+
+### Compact View (Default)
+
+```
+┌────────────────────────────────────────────────────────┐
+│ 🤖 Fix TypeScript Errors                        Agent  │
+│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │
+│                                                         │
+│ Scan @CurrentFile for TypeScript errors and fix them.  │
+│                                                         │
+│ ⏱️ 2-3 min  │  ⭐ Beginner  │  🏷️ debugging            │
+│                                                         │
+│                   [ ▶️ Run in Continue ]                │
+│                   [ 📋 Copy Prompt ]                    │
+└────────────────────────────────────────────────────────┘
+```
+
+### Expanded View (With Details)
+
+```
+┌────────────────────────────────────────────────────────┐
+│ 🤖 Generate Comprehensive Unit Tests           Agent  │
+│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │
+│                                                         │
+│ 📝 Description                                          │
+│ Automatically generate complete test coverage for      │
+│ your function with edge cases and error handling.      │
+│                                                         │
+│ 💬 The Prompt                                           │
+│ ┌─────────────────────────────────────────────────────┐│
+│ │ Create comprehensive unit tests for this function   ││
+│ │ using Jest. Include:                                ││
+│ │ - Happy path scenarios                              ││
+│ │ - Edge cases (empty, null, etc.)                    ││
+│ │ - Error conditions                                  ││
+│ └─────────────────────────────────────────────────────┘│
+│                                                         │
+│ ✅ Prerequisites                                        │
+│ • Jest installed in project                            │
+│ • Function code highlighted                            │
+│                                                         │
+│ 🎯 Expected Outcome                                     │
+│ A new test file with comprehensive unit tests          │
+│                                                         │
+│ ⏱️ 3-5 min  │  ⭐⭐ Intermediate  │  🏷️ testing        │
+│                                                         │
+│         [ ▶️ Run in Continue ]  [ 📋 Copy Prompt ]     │
+│                                                         │
+│ 💡 Suggested Context: @CurrentFile                      │
+└────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Implementation Details
+
+### Continue Detection
+
+```typescript
+// Check if Continue is installed and active
+async function isContinueConnected(): Promise<boolean> {
+  try {
+    // Method 1: Check for Continue API
+    if (window.continueAPI) {
+      return await window.continueAPI.isActive();
+    }
+
+    // Method 2: Check for VS Code extension
+    if (window.vscode) {
+      const extensions = await window.vscode.extensions.getAll();
+      return extensions.some(ext => ext.id === 'Continue.continue');
+    }
+
+    // Method 3: Local storage flag (set by extension)
+    return localStorage.getItem('continue-connected') === 'true';
+  } catch {
+    return false;
+  }
+}
+```
+
+### Run Task Function
+
+```typescript
+async function runTask(task: ContinueTaskProps) {
+  try {
+    // Open Continue panel
+    await window.continueAPI.open();
+
+    // Switch to specified mode
+    await window.continueAPI.setMode(task.mode);
+
+    // Insert prompt
+    await window.continueAPI.setPrompt(task.prompt);
+
+    // Track usage
+    trackEvent('task_run', {
+      title: task.title,
+      category: task.category,
+      mode: task.mode,
+    });
+
+    // Optional: Auto-submit or let user review
+    if (task.autoSubmit) {
+      await window.continueAPI.submit();
+    }
+  } catch (error) {
+    console.error('Failed to run task:', error);
+    // Fallback to copy
+    copyToClipboard(task.prompt);
+    showToast('Prompt copied to clipboard');
+  }
+}
+```
+
+### Copy to Clipboard
+
+```typescript
+function copyToClipboard(text: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('✅ Prompt copied to clipboard!');
+  });
+}
+```
+
+---
+
+## Filtering & Search
+
+### Task Library Page
+
+Users can filter tasks by:
+- **Category:** debugging, testing, refactoring, documentation, etc.
+- **Difficulty:** beginner, intermediate, advanced
+- **Time:** <5 min, 5-15 min, 15-30 min, 30+ min
+- **Mode:** chat, edit, agent, plan
+- **Tags:** Custom tags for flexible filtering
+
+```typescript
+interface TaskFilters {
+  categories: string[];
+  difficulties: string[];
+  timeRanges: string[];
+  modes: string[];
+  tags: string[];
+  searchQuery: string;
+}
+```
+
+### Search Index
+
+Tasks are indexed for full-text search:
+- Title
+- Description
+- Prompt content
+- Tags
+- Category
+
+---
+
+## Analytics
+
+Track task usage to improve documentation:
+
+```typescript
+interface TaskAnalytics {
+  task_run: {
+    title: string;
+    category: string;
+    mode: string;
+    timestamp: number;
+    source: string; // which docs page
+  };
+
+  task_copied: {
+    title: string;
+    category: string;
+    continueInstalled: boolean;
+  };
+
+  task_viewed: {
+    title: string;
+    expandedDetails: boolean;
+  };
+}
+```
+
+**Insights from analytics:**
+- Most popular tasks
+- Where users get stuck (view but don't run)
+- Which categories need more tasks
+- Conversion from copy → install
+
+---
+
+## Accessibility
+
+### Keyboard Navigation
+
+- Tab through components
+- Enter/Space to activate buttons
+- Escape to collapse expanded view
+
+### Screen Readers
+
+```jsx
+<button
+  aria-label={`Run ${title} task in Continue ${mode} mode`}
+  aria-describedby={`task-${id}-description`}
+>
+  Run in Continue
+</button>
+```
+
+### Visual Indicators
+
+- Clear focus states
+- High contrast mode support
+- Status indicators for connection
+
+---
+
+## Mobile Responsive
+
+### Desktop (> 768px)
+- Full expanded view
+- Side-by-side buttons
+
+### Tablet (481-768px)
+- Compact view by default
+- Expand on click
+- Stacked buttons
+
+### Mobile (< 480px)
+- Minimal view
+- Copy-only (can't run in IDE from mobile)
+- Link to desktop instructions
+
+---
+
+## Integration with Docs
+
+### In Documentation Pages
+
+```mdx
+## How to Fix TypeScript Errors
+
+Having type errors? Let Continue handle them:
+
+<ContinueTask
+  title="Fix All Type Errors"
+  prompt="Scan @CurrentFile for TypeScript errors. Fix each one and add proper type annotations."
+  mode="agent"
+  category="debugging"
+  estimatedTime="2-5 minutes"
+  difficulty="beginner"
+/>
+
+This task will:
+1. Scan your file for type errors
+2. Fix each error with correct types
+3. Add type annotations where missing
+4. Ensure type safety throughout
+```
+
+### Task Gallery Page
+
+```mdx
+# Task Library
+
+Browse and run 100+ tasks directly from Continue.
+
+<TaskGallery
+  categories={['debugging', 'testing', 'refactoring']}
+  showFilters={true}
+  defaultView="grid"
+/>
+```
+
+---
+
+## Future Enhancements
+
+### Phase 2 Features
+
+1. **Task Chaining**
+   - Link multiple tasks in sequence
+   - "After this, try: [related task]"
+
+2. **Custom Task Builder**
+   - Let users create and share custom tasks
+   - Save to Continue Hub
+
+3. **Task Collections**
+   - Curated workflows (e.g., "Complete Testing Workflow")
+   - Multi-step guided experiences
+
+4. **Success Tracking**
+   - Mark tasks as completed
+   - Progress badges
+   - Learning paths
+
+5. **Task Remixing**
+   - Fork and customize existing tasks
+   - Share customizations
+
+6. **AI-Assisted Task Discovery**
+   - "Describe your problem" → AI suggests relevant tasks
+   - Smart recommendations based on context
+
+---
+
+## React Component Implementation
+
+```tsx
+import React, { useState, useEffect } from 'react';
+
+interface ContinueTaskProps {
+  title: string;
+  prompt: string;
+  mode: 'chat' | 'agent' | 'plan' | 'edit';
+  description?: string;
+  category?: string;
+  estimatedTime?: string;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  prerequisites?: string[];
+  expectedOutcome?: string;
+  tags?: string[];
+  contextProviders?: string[];
+}
+
+export function ContinueTask(props: ContinueTaskProps) {
+  const [isConnected, setIsConnected] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    checkConnection();
+  }, []);
+
+  async function checkConnection() {
+    const connected = await isContinueConnected();
+    setIsConnected(connected);
+  }
+
+  async function runTask() {
+    if (isConnected) {
+      await window.continueAPI.open();
+      await window.continueAPI.setMode(props.mode);
+      await window.continueAPI.setPrompt(props.prompt);
+
+      trackEvent('task_run', {
+        title: props.title,
+        category: props.category,
+        mode: props.mode,
+      });
+    }
+  }
+
+  function copyPrompt() {
+    navigator.clipboard.writeText(props.prompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+
+    trackEvent('task_copied', {
+      title: props.title,
+      category: props.category,
+      continueInstalled: isConnected,
+    });
+  }
+
+  const difficultyStars = {
+    beginner: '⭐',
+    intermediate: '⭐⭐',
+    advanced: '⭐⭐⭐',
+  };
+
+  return (
+    <div className="continue-task">
+      <div className="task-header">
+        <h3>🤖 {props.title}</h3>
+        <span className="task-mode">{props.mode}</span>
+      </div>
+
+      {props.description && (
+        <p className="task-description">{props.description}</p>
+      )}
+
+      <div className="task-prompt">
+        <code>{props.prompt}</code>
+      </div>
+
+      <div className="task-meta">
+        {props.estimatedTime && (
+          <span>⏱️ {props.estimatedTime}</span>
+        )}
+        {props.difficulty && (
+          <span>{difficultyStars[props.difficulty]} {props.difficulty}</span>
+        )}
+        {props.category && (
+          <span>🏷️ {props.category}</span>
+        )}
+      </div>
+
+      {isExpanded && (
+        <div className="task-details">
+          {props.prerequisites && (
+            <div>
+              <h4>✅ Prerequisites</h4>
+              <ul>
+                {props.prerequisites.map((req, i) => (
+                  <li key={i}>{req}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {props.expectedOutcome && (
+            <div>
+              <h4>🎯 Expected Outcome</h4>
+              <p>{props.expectedOutcome}</p>
+            </div>
+          )}
+
+          {props.contextProviders && (
+            <div>
+              <h4>💡 Suggested Context</h4>
+              <p>{props.contextProviders.join(', ')}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="task-actions">
+        {isConnected ? (
+          <button
+            onClick={runTask}
+            className="btn-primary"
+            aria-label={`Run ${props.title} in Continue`}
+          >
+            ▶️ Run in Continue
+          </button>
+        ) : (
+          <a
+            href="/getting-started/install"
+            className="btn-secondary"
+          >
+            Install Continue
+          </a>
+        )}
+
+        <button
+          onClick={copyPrompt}
+          className="btn-secondary"
+          aria-label="Copy prompt to clipboard"
+        >
+          {copied ? '✅ Copied!' : '📋 Copy Prompt'}
+        </button>
+
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="btn-link"
+        >
+          {isExpanded ? 'Less' : 'More'} Details
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+## Styling (CSS)
+
+```css
+.continue-task {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  background: var(--card-background);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.task-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.task-mode {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.task-prompt {
+  background: var(--code-background);
+  padding: 12px;
+  border-radius: 4px;
+  margin: 12px 0;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.task-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 12px 0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--primary-color-dark);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .task-actions {
+    flex-direction: column;
+  }
+
+  .task-actions button {
+    width: 100%;
+  }
+}
+```
+
+---
+
+## Testing
+
+### Unit Tests
+
+```typescript
+describe('ContinueTask', () => {
+  it('renders task title and mode', () => {
+    render(<ContinueTask title="Test Task" prompt="test" mode="chat" />);
+    expect(screen.getByText('Test Task')).toBeInTheDocument();
+    expect(screen.getByText('chat')).toBeInTheDocument();
+  });
+
+  it('shows "Run in Continue" when connected', async () => {
+    mockContinueConnection(true);
+    render(<ContinueTask title="Test" prompt="test" mode="chat" />);
+    expect(await screen.findByText('Run in Continue')).toBeInTheDocument();
+  });
+
+  it('shows "Install Continue" when not connected', async () => {
+    mockContinueConnection(false);
+    render(<ContinueTask title="Test" prompt="test" mode="chat" />);
+    expect(await screen.findByText('Install Continue')).toBeInTheDocument();
+  });
+
+  it('copies prompt to clipboard', async () => {
+    render(<ContinueTask title="Test" prompt="test prompt" mode="chat" />);
+    const copyButton = screen.getByText('Copy Prompt');
+    await userEvent.click(copyButton);
+    expect(await navigator.clipboard.readText()).toBe('test prompt');
+  });
+});
+```
+
+---
+
+## Deployment Checklist
+
+- [ ] Component implementation
+- [ ] Styling and responsive design
+- [ ] Continue API integration
+- [ ] Analytics tracking
+- [ ] Accessibility audit
+- [ ] Cross-browser testing
+- [ ] Mobile testing
+- [ ] Documentation
+- [ ] Unit tests
+- [ ] Integration with Mintlify
+- [ ] Rollout to beta users
+- [ ] Gather feedback
+- [ ] Full deployment
+
+---
+
+**Status:** 📋 Specification Complete - Ready for Development

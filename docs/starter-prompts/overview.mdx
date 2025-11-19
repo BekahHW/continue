@@ -1,0 +1,436 @@
+---
+title: "Starter Prompts Library"
+description: "100+ proven prompts to help you get started with Continue. Copy, customize, and use these prompts to solve common development tasks."
+icon: "book-sparkles"
+---
+
+## 🚀 Quick Start
+
+New to Continue? Start here! These prompts solve real development problems you face every day.
+
+**How to use this library:**
+1. Browse prompts by category below
+2. Click "Copy Prompt" or "Run in Continue"
+3. Customize for your specific needs
+4. Save your favorites for quick access
+
+---
+
+## 📚 Prompt Categories
+
+<CardGroup cols={3}>
+  <Card title="🐛 Debugging" icon="bug" href="/starter-prompts/debugging">
+    Fix errors, trace issues, debug tests
+    **25 prompts**
+  </Card>
+  <Card title="🔧 Refactoring" icon="wrench" href="/starter-prompts/refactoring">
+    Clean code, extract functions, modernize
+    **20 prompts**
+  </Card>
+  <Card title="✅ Testing" icon="vial" href="/starter-prompts/testing">
+    Generate tests, improve coverage
+    **20 prompts**
+  </Card>
+  <Card title="📝 Documentation" icon="file-lines" href="/starter-prompts/documentation">
+    READMEs, comments, API docs
+    **15 prompts**
+  </Card>
+  <Card title="🔒 Security" icon="shield" href="/starter-prompts/security">
+    Vulnerability scanning, secure coding
+    **10 prompts**
+  </Card>
+  <Card title="⚡ Performance" icon="gauge-high" href="/starter-prompts/performance">
+    Optimize code, reduce complexity
+    **10 prompts**
+  </Card>
+  <Card title="🎓 Learning" icon="graduation-cap" href="/starter-prompts/learning">
+    Understand code, review PRs, explain
+    **15 prompts**
+  </Card>
+  <Card title="🔄 Migration" icon="rotate" href="/starter-prompts/migration">
+    Upgrade frameworks, migrate languages
+    **10 prompts**
+  </Card>
+  <Card title="✨ Code Quality" icon="star" href="/starter-prompts/code-quality">
+    Linting, formatting, best practices
+    **12 prompts**
+  </Card>
+</CardGroup>
+
+---
+
+## 🔥 Most Popular Prompts
+
+These are the most-used prompts from the Continue community:
+
+### 1️⃣ Fix All TypeScript Errors
+
+**Best for:** Agent mode
+**Time:** 2-5 minutes
+**Difficulty:** Beginner
+
+```
+Scan this file for TypeScript type errors. For each error:
+1. Explain what's wrong
+2. Fix it with the correct type
+3. Add type annotations where missing
+
+Make sure all fixes follow TypeScript best practices.
+```
+
+<Accordion title="Why this works">
+This prompt is effective because it:
+- Asks for explanations (helps you learn)
+- Requests best practices (improves code quality)
+- Handles multiple errors systematically
+</Accordion>
+
+---
+
+### 2️⃣ Generate Comprehensive Unit Tests
+
+**Best for:** Agent mode
+**Time:** 3-7 minutes
+**Difficulty:** Beginner
+
+```
+Write comprehensive unit tests for this module using [Jest/Vitest/Mocha].
+
+Include tests for:
+- Happy path scenarios
+- Edge cases (empty arrays, null values, etc.)
+- Error conditions
+- Boundary conditions
+
+Use descriptive test names and organize into logical groups.
+```
+
+<Accordion title="Customize this prompt">
+**For specific frameworks:**
+- Replace [Jest/Vitest/Mocha] with your testing framework
+- Add: "Use React Testing Library for components"
+- Add: "Include snapshot tests for UI components"
+
+**For specific coverage:**
+- Add: "Focus on the X function"
+- Add: "Prioritize error handling tests"
+</Accordion>
+
+---
+
+### 3️⃣ Explain Complex Code
+
+**Best for:** Chat mode
+**Time:** 1-3 minutes
+**Difficulty:** Beginner
+
+```
+Explain this code step-by-step:
+
+1. What is the overall purpose?
+2. Break down each section
+3. Explain any complex logic or algorithms
+4. Point out potential issues or improvements
+5. Suggest simplifications if applicable
+
+Use simple language and examples where helpful.
+```
+
+---
+
+### 4️⃣ Refactor for Readability
+
+**Best for:** Edit/Agent mode
+**Time:** 3-10 minutes
+**Difficulty:** Intermediate
+
+```
+Refactor this code for better readability:
+
+- Extract repeated patterns into reusable functions
+- Use descriptive variable and function names
+- Add clear comments for complex logic
+- Simplify nested conditionals
+- Follow [language] best practices
+
+Preserve all existing functionality.
+```
+
+---
+
+### 5️⃣ Add Error Handling
+
+**Best for:** Agent mode
+**Time:** 5-10 minutes
+**Difficulty:** Intermediate
+
+```
+Add comprehensive error handling to this code:
+
+1. Identify all possible error scenarios
+2. Add try-catch blocks where appropriate
+3. Provide meaningful error messages
+4. Log errors properly
+5. Handle edge cases gracefully
+
+Follow error handling best practices for [language/framework].
+```
+
+---
+
+## 🎯 Quick Win Prompts
+
+Start here if you want immediate results:
+
+<AccordionGroup>
+  <Accordion title="✨ Add JSDoc Comments" icon="comment">
+    ```
+    Add clear JSDoc comments to all functions in this file.
+    Include parameter types, return types, and brief descriptions.
+    ```
+    **Time:** 1-2 minutes | **Mode:** Edit
+  </Accordion>
+
+  <Accordion title="🎨 Format Code Consistently" icon="paintbrush">
+    ```
+    Format this code to follow [Prettier/ESLint] standards.
+    Fix all linting errors and ensure consistent style.
+    ```
+    **Time:** 1-2 minutes | **Mode:** Edit
+  </Accordion>
+
+  <Accordion title="📦 Update Dependencies" icon="box">
+    ```
+    Review package.json and identify outdated dependencies.
+    Suggest safe updates and highlight any breaking changes.
+    ```
+    **Time:** 2-3 minutes | **Mode:** Chat
+  </Accordion>
+
+  <Accordion title="🔍 Find Unused Code" icon="magnifying-glass">
+    ```
+    Analyze this file and identify:
+    - Unused imports
+    - Unused variables
+    - Dead code paths
+    - Unreachable code
+    ```
+    **Time:** 1-2 minutes | **Mode:** Chat
+  </Accordion>
+
+  <Accordion title="🚀 Optimize Performance" icon="rocket">
+    ```
+    Profile this function and suggest optimizations:
+    - Identify bottlenecks
+    - Suggest algorithmic improvements
+    - Point out unnecessary operations
+    - Recommend caching opportunities
+    ```
+    **Time:** 3-5 minutes | **Mode:** Chat
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 💡 Pro Tips for Better Prompts
+
+### 1. Be Specific
+❌ "Make this better"
+✅ "Refactor this function to use async/await instead of callbacks"
+
+### 2. Provide Context
+❌ "Fix the bug"
+✅ "This function throws 'undefined is not a function' when the array is empty. Fix the bug and add validation."
+
+### 3. Set Expectations
+❌ "Add tests"
+✅ "Add unit tests using Jest. Cover happy path, edge cases, and error conditions."
+
+### 4. Specify Output Format
+❌ "Document this"
+✅ "Add JSDoc comments with parameter types, return type, and usage examples."
+
+### 5. Request Explanations
+❌ "Optimize this"
+✅ "Optimize this function and explain each improvement you made."
+
+---
+
+## 🔧 Customizing Prompts
+
+### For Your Stack
+Replace generic terms with your specific tech:
+- `[Jest/Vitest/Mocha]` → Your test framework
+- `[language]` → JavaScript, Python, TypeScript, etc.
+- `[framework]` → React, Vue, Angular, Django, etc.
+
+### For Your Team
+Add team-specific requirements:
+- "Follow our coding standards in CONTRIBUTING.md"
+- "Use our error handling pattern from utils/errors"
+- "Match the style in @Codebase"
+
+### For Your Project
+Include project context:
+- "@File path/to/example.ts Use this as a reference"
+- "Follow the pattern in @Folder /components"
+- "Check our docs @Docs https://docs.example.com"
+
+---
+
+## 📊 Prompt Templates
+
+### Debug Template
+```
+[Problem Description]
+Current behavior: [what's happening]
+Expected behavior: [what should happen]
+Error message: [if any]
+
+Please:
+1. Identify the root cause
+2. Explain why it's happening
+3. Fix the issue
+4. Prevent similar issues in the future
+```
+
+### Refactor Template
+```
+Refactor this code to:
+1. [Goal 1 - e.g., improve performance]
+2. [Goal 2 - e.g., better readability]
+3. [Goal 3 - e.g., follow best practices]
+
+Requirements:
+- Preserve existing functionality
+- Add tests if missing
+- Explain significant changes
+```
+
+### Learning Template
+```
+Help me understand this code:
+
+Context: [what you're trying to accomplish]
+Confusion: [what you don't understand]
+
+Please explain:
+1. The overall structure and purpose
+2. How [specific part] works
+3. Why [specific decision] was made
+4. Alternative approaches and tradeoffs
+```
+
+---
+
+## 🌟 Community Contributions
+
+<Info>
+Have a great prompt? Share it with the community!
+
+[Submit Your Prompt](https://github.com/continuedev/continue/discussions) |
+[View Community Prompts](https://hub.continue.dev/)
+</Info>
+
+### Featured Community Prompts
+
+**"Accessibility Audit" by @user123**
+```
+Audit this component for accessibility:
+- Check ARIA labels and roles
+- Verify keyboard navigation
+- Test screen reader compatibility
+- Suggest improvements with code examples
+```
+
+**"API Documentation Generator" by @devuser**
+```
+Generate OpenAPI/Swagger documentation for these API endpoints.
+Include request/response schemas, status codes, and examples.
+```
+
+**"Security Audit" by @securitypro**
+```
+Perform a security audit on this code:
+- Check for SQL injection vulnerabilities
+- Identify XSS risks
+- Review authentication/authorization
+- Check for exposed secrets
+- Suggest security improvements
+```
+
+---
+
+## 🎮 Interactive Prompt Builder
+
+<Info>
+Coming Soon: Build custom prompts with our interactive prompt builder!
+
+The builder will help you:
+- Choose the right mode (Chat/Edit/Agent/Plan)
+- Select appropriate context providers
+- Optimize prompt structure
+- Test and refine your prompts
+</Info>
+
+---
+
+## 📖 Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Workflows" icon="diagram-project" href="/workflows/overview">
+    Complete multi-step workflows for common tasks
+  </Card>
+  <Card title="Features Guide" icon="star" href="/features">
+    Learn when to use Chat, Edit, Agent, or Plan
+  </Card>
+  <Card title="Context Providers" icon="layer-group" href="/customize/context/overview">
+    Add codebase, docs, and external context to prompts
+  </Card>
+  <Card title="Slash Commands" icon="slash" href="/customize/deep-dives/slash-commands">
+    Create reusable custom commands from your prompts
+  </Card>
+</CardGroup>
+
+---
+
+## ❓ FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I save my favorite prompts?">
+    Yes! You can save prompts as [Slash Commands](/customize/deep-dives/slash-commands) or bookmark them in Continue. Custom prompts can also be shared via [Continue Hub](/hub).
+  </Accordion>
+
+  <Accordion title="Which mode should I use for each prompt?">
+    - **Chat**: Questions, explanations, planning
+    - **Edit**: Single-file modifications
+    - **Agent**: Multi-file tasks, file creation, running commands
+    - **Plan**: Exploring before making changes
+
+    See our [Mode Selection Guide](/workflows/choosing-the-right-mode) for details.
+  </Accordion>
+
+  <Accordion title="Can I use context providers in these prompts?">
+    Absolutely! Add context to any prompt:
+    - `@File path/to/file` - Reference specific files
+    - `@Codebase` - Search entire codebase
+    - `@Docs https://...` - Include documentation
+    - `@Terminal` - Include terminal output
+
+    [Learn more about context providers](/customize/context/overview)
+  </Accordion>
+
+  <Accordion title="How do I share prompts with my team?">
+    You can:
+    1. Create [Prompt Blocks](/hub/blocks/intro) on Continue Hub
+    2. Share slash commands via your config
+    3. Add prompts to your team's documentation
+    4. Use [Hub Organizations](/hub/governance/creating-an-org) for team-wide access
+  </Accordion>
+</AccordionGroup>
+
+---
+
+<Info>
+**New prompts added weekly!** Bookmark this page and check back regularly for fresh prompts based on community feedback and popular use cases.
+</Info>

@@ -1,0 +1,611 @@
+---
+title: "Debugging Prompts"
+description: "25+ prompts to help you fix bugs faster. Debug errors, trace issues, and resolve problems with AI assistance."
+icon: "bug"
+---
+
+## 🐛 Debugging Made Easy
+
+Stop spending hours hunting for bugs. These prompts help you identify, understand, and fix issues quickly.
+
+---
+
+## 🔴 Critical Errors
+
+### Fix Runtime Exceptions
+
+<Tabs>
+<Tab title="Prompt">
+```
+I'm getting this error: [paste error message]
+
+In file: [file path or @File reference]
+
+Please:
+1. Identify the root cause
+2. Explain why it's happening
+3. Show me the fix with code
+4. Explain how to prevent this in the future
+```
+</Tab>
+<Tab title="Best Practices">
+**When to use:** Any runtime error or exception
+
+**Mode:** Chat → Edit/Agent (for fix)
+
+**Pro tips:**
+- Include the full stack trace
+- Mention when the error occurs (on load, on click, etc.)
+- Add relevant context with @CurrentFile or @File
+</Tab>
+</Tabs>
+
+---
+
+### Debug Failing Tests
+
+```
+These tests are failing: [test names or @Terminal output]
+
+Please:
+1. Analyze why each test is failing
+2. Identify if it's a test issue or code issue
+3. Fix the implementation or update the tests
+4. Ensure all tests pass
+```
+
+**Mode:** Agent | **Time:** 5-10 min | **Difficulty:** Intermediate
+
+---
+
+### Trace Stack Trace
+
+```
+I'm getting this stack trace: [paste stack trace]
+
+Help me:
+1. Identify the exact line causing the issue
+2. Explain the call chain that led to the error
+3. Suggest potential fixes
+4. Show me how to add better error handling
+```
+
+**Mode:** Chat | **Time:** 2-5 min | **Difficulty:** Beginner
+
+---
+
+## 🟡 Logic Errors
+
+### Fix Incorrect Output
+
+```
+This function returns: [actual output]
+But it should return: [expected output]
+
+Input: [sample input]
+
+Please:
+1. Trace through the logic step-by-step
+2. Identify where it goes wrong
+3. Fix the logic
+4. Add tests to prevent regression
+```
+
+**Mode:** Agent | **Time:** 3-7 min | **Difficulty:** Intermediate
+
+---
+
+### Debug Infinite Loop
+
+```
+This code is causing an infinite loop or hanging:
+
+@CurrentFile
+
+Please:
+1. Identify the loop condition that never terminates
+2. Explain why it's infinite
+3. Fix the loop condition
+4. Add safeguards to prevent infinite loops
+```
+
+**Mode:** Chat | **Time:** 2-4 min | **Difficulty:** Beginner
+
+---
+
+### Fix Off-by-One Errors
+
+```
+I suspect an off-by-one error in this function:
+
+[paste code or use @File]
+
+Please:
+1. Check array indices and loop bounds
+2. Identify any off-by-one errors
+3. Fix them and explain the correction
+4. Add boundary tests
+```
+
+**Mode:** Edit/Agent | **Time:** 2-5 min | **Difficulty:** Beginner
+
+---
+
+## 🟢 Type & Compilation Errors
+
+### Fix TypeScript Errors
+
+```
+Scan this file for TypeScript type errors:
+
+@CurrentFile
+
+For each error:
+1. Explain what's wrong
+2. Fix it with the correct type
+3. Add type annotations where missing
+4. Ensure type safety throughout
+
+Follow TypeScript best practices.
+```
+
+**Mode:** Agent | **Time:** 3-8 min | **Difficulty:** Beginner
+
+---
+
+### Resolve Type Conflicts
+
+```
+I have conflicting types:
+
+[paste error or reference code]
+
+Please:
+1. Explain the type conflict
+2. Suggest the best way to resolve it
+3. Update types consistently across the codebase
+4. Add type guards if needed
+```
+
+**Mode:** Chat → Edit | **Time:** 3-6 min | **Difficulty:** Intermediate
+
+---
+
+### Fix Import/Export Errors
+
+```
+I'm getting module import errors:
+
+[paste error]
+
+Please:
+1. Check import/export syntax
+2. Verify module paths
+3. Fix any circular dependencies
+4. Ensure proper module resolution
+```
+
+**Mode:** Chat/Agent | **Time:** 2-5 min | **Difficulty:** Beginner
+
+---
+
+## 🔵 Performance Issues
+
+### Debug Slow Performance
+
+```
+This function is running slowly:
+
+@File [path]
+
+Please:
+1. Profile the code and identify bottlenecks
+2. Explain what's causing the slowdown
+3. Suggest optimizations
+4. Implement the improvements
+```
+
+**Mode:** Chat → Agent | **Time:** 5-15 min | **Difficulty:** Advanced
+
+---
+
+### Fix Memory Leak
+
+```
+I suspect a memory leak in this component:
+
+[paste code or @File reference]
+
+Please:
+1. Identify potential memory leaks
+2. Explain what's causing them
+3. Fix with proper cleanup
+4. Add cleanup in useEffect/componentWillUnmount
+```
+
+**Mode:** Chat | **Time:** 5-10 min | **Difficulty:** Advanced
+
+---
+
+### Debug High CPU Usage
+
+```
+This code is causing high CPU usage:
+
+@CurrentFile
+
+Please:
+1. Identify expensive operations
+2. Suggest algorithmic improvements
+3. Add caching where appropriate
+4. Optimize loops and recursive calls
+```
+
+**Mode:** Chat → Agent | **Time:** 5-10 min | **Difficulty:** Intermediate
+
+---
+
+## 🟣 Integration Issues
+
+### Debug API Failures
+
+```
+This API call is failing:
+
+[paste code or error]
+
+Error response: [paste response]
+
+Please:
+1. Check the request format
+2. Verify authentication/headers
+3. Handle error responses properly
+4. Add retry logic if appropriate
+```
+
+**Mode:** Chat → Edit | **Time:** 3-7 min | **Difficulty:** Intermediate
+
+---
+
+### Fix Database Query Errors
+
+```
+This database query is failing:
+
+[paste query or error]
+
+Please:
+1. Check query syntax
+2. Verify table/column names
+3. Fix the query
+4. Add proper error handling
+5. Optimize if needed
+```
+
+**Mode:** Chat → Edit | **Time:** 3-6 min | **Difficulty:** Intermediate
+
+---
+
+### Debug WebSocket Connection
+
+```
+WebSocket connection issues:
+
+[paste error or describe issue]
+
+Please:
+1. Check connection setup
+2. Verify event handlers
+3. Add reconnection logic
+4. Handle disconnections gracefully
+```
+
+**Mode:** Agent | **Time:** 5-10 min | **Difficulty:** Advanced
+
+---
+
+## 🟠 UI/UX Bugs
+
+### Fix Layout Issues
+
+```
+The layout is broken:
+
+[describe issue or attach screenshot]
+
+In component: @File [path]
+
+Please:
+1. Identify the CSS/styling issue
+2. Fix the layout
+3. Ensure responsive behavior
+4. Test on different screen sizes
+```
+
+**Mode:** Edit/Agent | **Time:** 3-8 min | **Difficulty:** Intermediate
+
+---
+
+### Debug Event Handlers
+
+```
+This event handler isn't working:
+
+[paste code]
+
+Expected: [what should happen]
+Actual: [what's happening]
+
+Please:
+1. Check event binding
+2. Verify event propagation
+3. Fix the handler
+4. Add console logs for debugging
+```
+
+**Mode:** Edit | **Time:** 2-5 min | **Difficulty:** Beginner
+
+---
+
+### Fix Form Validation
+
+```
+Form validation isn't working correctly:
+
+@File [form component path]
+
+Issues: [describe validation problems]
+
+Please:
+1. Check validation logic
+2. Fix validation rules
+3. Improve error messages
+4. Add proper form state management
+```
+
+**Mode:** Agent | **Time:** 4-8 min | **Difficulty:** Intermediate
+
+---
+
+## 🎯 Advanced Debugging
+
+### Debug Race Conditions
+
+```
+I'm experiencing race conditions:
+
+[describe the issue]
+
+In code: @File [path]
+
+Please:
+1. Identify asynchronous operations that may conflict
+2. Explain the race condition
+3. Fix with proper synchronization
+4. Add state management if needed
+```
+
+**Mode:** Chat → Agent | **Time:** 10-20 min | **Difficulty:** Advanced
+
+---
+
+### Debug Concurrency Issues
+
+```
+Multiple requests are interfering with each other:
+
+[describe issue]
+
+Please:
+1. Identify concurrent operations
+2. Add request cancellation
+3. Implement proper queuing
+4. Handle concurrent state updates
+```
+
+**Mode:** Agent | **Time:** 10-15 min | **Difficulty:** Advanced
+
+---
+
+### Debug Complex State Issues
+
+```
+Application state is inconsistent:
+
+Current state: [describe state]
+Expected state: [expected state]
+
+Using: [Redux/Zustand/Context/etc.]
+
+Please:
+1. Trace state changes
+2. Identify where state becomes inconsistent
+3. Fix state management logic
+4. Add state validation
+```
+
+**Mode:** Chat → Agent | **Time:** 10-20 min | **Difficulty:** Advanced
+
+---
+
+## 💡 Pro Debugging Tips
+
+<AccordionGroup>
+  <Accordion title="Include Context" icon="layer-group">
+    Add relevant context to your debugging prompts:
+    - `@CurrentFile` - Current file
+    - `@Terminal` - Error output
+    - `@Diff` - Recent changes
+    - `@Commits` - Recent commits
+
+    **Example:**
+    ```
+    This error started after my recent changes:
+
+    @Diff
+    Error: @Terminal
+
+    What did I break and how do I fix it?
+    ```
+  </Accordion>
+
+  <Accordion title="Use Bisect Approach" icon="code-branch">
+    For hard-to-find bugs:
+    ```
+    I have a bug but don't know where it is.
+
+    Please help me bisect:
+    1. Review recent changes (@Diff)
+    2. Identify likely culprits
+    3. Create a testing strategy
+    4. Narrow down the source
+    ```
+  </Accordion>
+
+  <Accordion title="Add Logging" icon="file-lines">
+    Get help adding debug logs:
+    ```
+    Add strategic console.log statements to debug this issue:
+
+    @CurrentFile
+
+    Focus on:
+    - Function inputs/outputs
+    - Conditional branches
+    - Async operation states
+    ```
+  </Accordion>
+
+  <Accordion title="Reproduce Reliably" icon="rotate">
+    Create reproduction steps:
+    ```
+    This bug is intermittent. Help me:
+
+    1. Create a minimal reproduction
+    2. Identify triggering conditions
+    3. Make it reproduce consistently
+    4. Then fix it
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 🔧 Debug Workflow Templates
+
+### Complete Debug Session
+
+```
+I'm debugging: [issue description]
+
+Steps to reproduce:
+1. [step 1]
+2. [step 2]
+3. [step 3]
+
+Expected: [expected behavior]
+Actual: [actual behavior]
+Error: [error message if any]
+
+Context:
+@CurrentFile
+@Terminal
+@Diff (recent changes)
+
+Please walk me through:
+1. Understanding the issue
+2. Locating the root cause
+3. Implementing a fix
+4. Adding tests to prevent regression
+5. Documenting the fix
+```
+
+**Mode:** Agent | **Time:** 15-30 min
+
+---
+
+### Quick Fix Template
+
+```
+Quick bug fix needed:
+
+Bug: [one-line description]
+File: @File [path]
+Line: [approximate line number]
+
+Please:
+1. Confirm the bug
+2. Fix it
+3. Explain the fix
+```
+
+**Mode:** Edit | **Time:** 2-5 min
+
+---
+
+## 📊 Common Error Patterns
+
+### Null/Undefined Errors
+
+```
+Fix null/undefined errors in this code:
+
+@CurrentFile
+
+Please:
+1. Add null checks where needed
+2. Use optional chaining (?.)
+3. Provide default values
+4. Add TypeScript strictNullChecks if applicable
+```
+
+---
+
+### Async/Await Errors
+
+```
+Fix async/await usage in this code:
+
+@File [path]
+
+Common issues to check:
+1. Missing await keywords
+2. Unhandled promise rejections
+3. Incorrect async function declarations
+4. Promise chain errors
+```
+
+---
+
+### Event Loop Issues
+
+```
+Debug event loop/timing issues:
+
+@CurrentFile
+
+Check for:
+1. Callback timing problems
+2. SetTimeout/setInterval misuse
+3. Missing async/await
+4. Blocking operations
+```
+
+---
+
+## 📖 Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Testing Prompts" icon="vial" href="/starter-prompts/testing">
+    Add tests to catch bugs early
+  </Card>
+  <Card title="Code Quality" icon="star" href="/starter-prompts/code-quality">
+    Prevent bugs with better code
+  </Card>
+  <Card title="Performance" icon="gauge-high" href="/starter-prompts/performance">
+    Fix performance issues
+  </Card>
+  <Card title="Agent Mode" icon="robot" href="/features/agent/quick-start">
+    Use Agent for complex debugging
+  </Card>
+</CardGroup>
