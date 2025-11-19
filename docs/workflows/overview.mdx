@@ -1,0 +1,522 @@
+---
+title: "Workflows"
+description: "Solve real development problems with Continue. Complete workflows for debugging, refactoring, testing, and more."
+icon: "diagram-project"
+---
+
+## 🎯 Problem-Solving Workflows
+
+Stop wondering **what Continue can do**. Start solving **the problems you face every day**.
+
+Each workflow below tackles a specific development challenge with step-by-step guidance using Continue's AI features.
+
+---
+
+## 🚀 Choose Your Challenge
+
+<CardGroup cols={2}>
+  <Card title="🐛 Fix a Bug" icon="bug" href="/workflows/debugging/overview">
+    Debug errors, trace issues, resolve problems
+
+    **Common scenarios:**
+    - Runtime exceptions
+    - Failing tests
+    - Type errors
+    - Performance issues
+  </Card>
+
+  <Card title="🔧 Refactor Code" icon="code" href="/workflows/refactoring/overview">
+    Clean up code, improve structure, modernize
+
+    **Common scenarios:**
+    - Extract reusable functions
+    - Simplify complex logic
+    - Modernize to latest standards
+    - Remove duplication
+  </Card>
+
+  <Card title="✅ Write Tests" icon="vial" href="/workflows/testing/overview">
+    Generate tests, improve coverage, fix failures
+
+    **Common scenarios:**
+    - Unit test generation
+    - Integration testing
+    - Test coverage gaps
+    - Edge case testing
+  </Card>
+
+  <Card title="📝 Document Code" icon="file-lines" href="/workflows/documentation/overview">
+    Create docs, add comments, generate READMEs
+
+    **Common scenarios:**
+    - API documentation
+    - Inline comments
+    - README generation
+    - Usage examples
+  </Card>
+
+  <Card title="🎓 Understand Code" icon="graduation-cap" href="/workflows/learning/overview">
+    Learn unfamiliar code, review changes, explore
+
+    **Common scenarios:**
+    - New codebase onboarding
+    - Legacy code understanding
+    - Pull request reviews
+    - Architecture exploration
+  </Card>
+
+  <Card title="🔄 Migrate Code" icon="arrows-rotate" href="/workflows/migration/overview">
+    Upgrade frameworks, migrate languages, update
+
+    **Common scenarios:**
+    - Framework upgrades
+    - Language migrations
+    - Dependency updates
+    - API version changes
+  </Card>
+
+  <Card title="🔒 Security Audit" icon="shield" href="/workflows/security/overview">
+    Find vulnerabilities, fix security issues
+
+    **Common scenarios:**
+    - Vulnerability scanning
+    - Input validation
+    - Authentication review
+    - Secret detection
+  </Card>
+
+  <Card title="⚡ Optimize Performance" icon="gauge-high" href="/workflows/performance/overview">
+    Speed up code, reduce complexity, optimize
+
+    **Common scenarios:**
+    - Slow functions
+    - Memory leaks
+    - Database query optimization
+    - Bundle size reduction
+  </Card>
+</CardGroup>
+
+---
+
+## 🎬 Quick Start Workflows
+
+New to Continue? Start with these simple, high-impact workflows:
+
+### 1. Fix TypeScript Errors in 2 Minutes
+
+**Problem:** Your file has type errors and you don't have time to fix them all manually.
+
+**Solution:**
+
+<Steps>
+<Step title="Open the file with errors">
+Navigate to the file in your IDE
+</Step>
+
+<Step title="Switch to Agent mode">
+Click the mode dropdown → Select "Agent"
+</Step>
+
+<Step title="Use this prompt">
+```
+Scan @CurrentFile for TypeScript type errors.
+Fix each one and add proper type annotations.
+```
+</Step>
+
+<Step title="Review and accept">
+Agent will show you all fixes. Review and accept the changes.
+</Step>
+</Steps>
+
+**Time:** 2-3 minutes | **Mode:** Agent | **Difficulty:** ⭐ Beginner
+
+---
+
+### 2. Generate Tests for a Function
+
+**Problem:** You wrote a function but need comprehensive tests.
+
+**Solution:**
+
+<Steps>
+<Step title="Highlight the function">
+Select the function code in your editor
+</Step>
+
+<Step title="Open Agent mode">
+`Cmd/Ctrl + L` → Switch to Agent
+</Step>
+
+<Step title="Use this prompt">
+```
+Generate comprehensive unit tests for this function using [Jest/Vitest].
+
+Include:
+- Happy path tests
+- Edge cases
+- Error conditions
+```
+</Step>
+
+<Step title="Agent creates test file">
+Agent will create a new test file with complete coverage
+</Step>
+</Steps>
+
+**Time:** 3-5 minutes | **Mode:** Agent | **Difficulty:** ⭐ Beginner
+
+---
+
+### 3. Refactor Complex Function
+
+**Problem:** You have a 100-line function that's hard to understand and maintain.
+
+**Solution:**
+
+<Steps>
+<Step title="Highlight the function">
+Select the entire function
+</Step>
+
+<Step title="Use Edit mode">
+Press `Cmd/Ctrl + I`
+</Step>
+
+<Step title="Use this prompt">
+```
+Refactor this function:
+- Extract logical sections into smaller functions
+- Use descriptive names
+- Add comments for complex parts
+- Preserve all functionality
+```
+</Step>
+
+<Step title="Review the diff">
+Edit mode shows side-by-side comparison. Accept/reject changes.
+</Step>
+</Steps>
+
+**Time:** 5-10 minutes | **Mode:** Edit | **Difficulty:** ⭐⭐ Intermediate
+
+---
+
+### 4. Understand New Codebase
+
+**Problem:** You joined a project and need to understand how it works.
+
+**Solution:**
+
+<Steps>
+<Step title="Open Plan mode">
+Switch to Plan mode (read-only exploration)
+</Step>
+
+<Step title="Start exploring">
+```
+Help me understand this codebase:
+
+1. What is the overall architecture?
+2. What are the main components?
+3. How does data flow through the system?
+4. Where should I look to understand [specific feature]?
+
+Use @RepoMap and @Codebase to explore.
+```
+</Step>
+
+<Step title="Ask follow-ups">
+Continue asking questions to dive deeper into specific areas
+</Step>
+</Steps>
+
+**Time:** 10-20 minutes | **Mode:** Plan | **Difficulty:** ⭐⭐ Intermediate
+
+---
+
+## 📊 Workflow Decision Matrix
+
+Not sure which workflow to follow? Use this guide:
+
+| Your Goal | Recommended Workflow | Best Mode | Time Estimate |
+|-----------|---------------------|-----------|---------------|
+| Fix a specific error | [Debug Runtime Error](/workflows/debugging/runtime-errors) | Chat → Agent | 5-10 min |
+| Make code more readable | [Refactor for Readability](/workflows/refactoring/readability) | Edit | 5-15 min |
+| Add tests to existing code | [Generate Unit Tests](/workflows/testing/unit-tests) | Agent | 5-10 min |
+| Understand what code does | [Explain Code](/workflows/learning/explain-code) | Chat | 2-5 min |
+| Update to latest framework version | [Framework Migration](/workflows/migration/framework-upgrade) | Agent | 30-60 min |
+| Find security issues | [Security Audit](/workflows/security/vulnerability-scan) | Chat → Agent | 10-20 min |
+| Speed up slow code | [Performance Optimization](/workflows/performance/optimize-function) | Chat → Agent | 15-30 min |
+| Document a module | [Generate Documentation](/workflows/documentation/api-docs) | Agent | 5-10 min |
+
+---
+
+## 🎓 Workflow Categories
+
+### 🐛 Debugging Workflows
+
+<AccordionGroup>
+  <Accordion title="Debug Runtime Exceptions" icon="exclamation-triangle">
+    **Time:** 5-10 min | **Mode:** Chat → Agent
+
+    Fix crashes, null references, and runtime errors with systematic debugging.
+
+    [View Workflow](/workflows/debugging/runtime-errors)
+  </Accordion>
+
+  <Accordion title="Fix Failing Tests" icon="flask">
+    **Time:** 5-15 min | **Mode:** Agent
+
+    Identify why tests fail and fix either the test or the implementation.
+
+    [View Workflow](/workflows/debugging/failing-tests)
+  </Accordion>
+
+  <Accordion title="Debug Performance Issues" icon="tachometer-alt">
+    **Time:** 15-30 min | **Mode:** Chat → Agent
+
+    Profile slow code, identify bottlenecks, and implement optimizations.
+
+    [View Workflow](/workflows/debugging/performance)
+  </Accordion>
+
+  <Accordion title="Trace Logic Errors" icon="route">
+    **Time:** 10-20 min | **Mode:** Chat
+
+    Step through complex logic to find where calculations go wrong.
+
+    [View Workflow](/workflows/debugging/logic-errors)
+  </Accordion>
+</AccordionGroup>
+
+### 🔧 Refactoring Workflows
+
+<AccordionGroup>
+  <Accordion title="Extract Reusable Functions" icon="recycle">
+    **Time:** 5-15 min | **Mode:** Edit/Agent
+
+    Identify repeated code and extract it into reusable utilities.
+
+    [View Workflow](/workflows/refactoring/extract-functions)
+  </Accordion>
+
+  <Accordion title="Simplify Complex Logic" icon="project-diagram">
+    **Time:** 10-20 min | **Mode:** Edit
+
+    Refactor nested conditionals, simplify boolean logic, improve readability.
+
+    [View Workflow](/workflows/refactoring/simplify-logic)
+  </Accordion>
+
+  <Accordion title="Modernize Legacy Code" icon="clock-rotate-left">
+    **Time:** 20-40 min | **Mode:** Agent
+
+    Update old code to use modern language features and best practices.
+
+    [View Workflow](/workflows/refactoring/modernize)
+  </Accordion>
+
+  <Accordion title="Improve Code Quality" icon="star">
+    **Time:** 10-20 min | **Mode:** Agent
+
+    Apply linting rules, formatting standards, and best practices.
+
+    [View Workflow](/workflows/refactoring/code-quality)
+  </Accordion>
+</AccordionGroup>
+
+### ✅ Testing Workflows
+
+<AccordionGroup>
+  <Accordion title="Generate Unit Tests" icon="vial">
+    **Time:** 5-10 min | **Mode:** Agent
+
+    Create comprehensive unit tests with edge cases and error conditions.
+
+    [View Workflow](/workflows/testing/unit-tests)
+  </Accordion>
+
+  <Accordion title="Add Integration Tests" icon="puzzle-piece">
+    **Time:** 10-20 min | **Mode:** Agent
+
+    Test how components work together with integration tests.
+
+    [View Workflow](/workflows/testing/integration-tests)
+  </Accordion>
+
+  <Accordion title="Improve Test Coverage" icon="chart-line">
+    **Time:** 15-30 min | **Mode:** Agent
+
+    Identify untested code paths and add missing tests.
+
+    [View Workflow](/workflows/testing/coverage)
+  </Accordion>
+
+  <Accordion title="Test Edge Cases" icon="border-all">
+    **Time:** 10-15 min | **Mode:** Agent
+
+    Add tests for boundary conditions and unusual inputs.
+
+    [View Workflow](/workflows/testing/edge-cases)
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 💡 Pro Tips for Workflows
+
+<Tip>
+**Combine Context Providers**
+
+Make your workflows more powerful by adding context:
+
+```
+Debug this error: @Terminal
+
+In the code: @CurrentFile
+
+After these changes: @Diff
+
+Using patterns from: @Codebase similar error handling
+```
+</Tip>
+
+<Tip>
+**Use Plan Mode First**
+
+For complex workflows, start in Plan mode to explore before making changes:
+
+1. Plan mode: Understand the problem
+2. Chat mode: Discuss solutions
+3. Agent mode: Implement the fix
+</Tip>
+
+<Tip>
+**Save Common Workflows**
+
+Turn frequent workflows into [Slash Commands](/customize/deep-dives/slash-commands):
+
+```yaml
+slashCommands:
+  - name: "debug-error"
+    description: "Debug a runtime error"
+    prompt: |
+      Debug this error: {{{ input }}}
+
+      In: @CurrentFile
+      Recent changes: @Diff
+
+      1. Identify root cause
+      2. Explain the issue
+      3. Fix it
+      4. Add error handling
+```
+</Tip>
+
+---
+
+## 🎯 Workflow Templates
+
+### General Purpose Template
+
+```
+[Problem Statement]
+
+Goal: [what you want to achieve]
+
+Current state:
+- [describe current situation]
+- @CurrentFile or @File [relevant files]
+
+Expected outcome:
+- [what success looks like]
+
+Requirements:
+- [constraint 1]
+- [constraint 2]
+
+Please:
+1. [step 1]
+2. [step 2]
+3. [step 3]
+```
+
+### Debug Template
+
+```
+Debugging: [issue description]
+
+Error: @Terminal or [error message]
+File: @CurrentFile
+Recent changes: @Diff
+
+Please help me:
+1. Understand what's causing this
+2. Locate the exact problem
+3. Implement a fix
+4. Prevent it from happening again
+```
+
+### Refactor Template
+
+```
+Refactoring: [component/function name]
+
+Current issues:
+- [issue 1]
+- [issue 2]
+
+Goals:
+- [goal 1]
+- [goal 2]
+
+Requirements:
+- Preserve all functionality
+- Add tests if missing
+- Follow [style guide/best practices]
+
+Code: @File [path] or @CurrentFile
+```
+
+---
+
+## 📈 Track Your Progress
+
+<Info>
+**Workflow Checklist**
+
+Track which workflows you've mastered:
+
+- [ ] Fix TypeScript errors
+- [ ] Generate unit tests
+- [ ] Refactor complex function
+- [ ] Debug runtime error
+- [ ] Understand new codebase
+- [ ] Migrate framework version
+- [ ] Security audit
+- [ ] Performance optimization
+- [ ] Generate documentation
+- [ ] Review pull request
+
+Master these 10 workflows and you'll handle 80% of daily development tasks with Continue!
+</Info>
+
+---
+
+## 📚 Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Starter Prompts" icon="book-sparkles" href="/starter-prompts/overview">
+    100+ ready-to-use prompts for every workflow
+  </Card>
+  <Card title="Features Guide" icon="star" href="/features">
+    Learn Chat, Edit, Agent, and Plan modes
+  </Card>
+  <Card title="Context Providers" icon="layer-group" href="/customize/context/overview">
+    Add powerful context to your workflows
+  </Card>
+  <Card title="Guides" icon="map" href="/guides/overview">
+    Advanced tutorials and customization
+  </Card>
+</CardGroup>

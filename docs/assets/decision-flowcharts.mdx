@@ -1,0 +1,615 @@
+---
+title: "Decision Flowcharts & Visual Guides"
+description: "Visual guides to help you choose the right Continue features for your needs"
+icon: "diagram-project"
+---
+
+## 🎯 Which Mode Should I Use?
+
+<Info>
+Use this flowchart to decide between Chat, Edit, Agent, and Plan modes.
+</Info>
+
+```mermaid
+graph TD
+    Start[What do you want to do?] --> Question1{Will you modify code?}
+
+    Question1 -->|No, just exploring| Question2{Want AI to use tools?}
+    Question1 -->|Yes, making changes| Question3{Single file or multiple?}
+
+    Question2 -->|Yes, read-only tools| Plan[✅ Use PLAN Mode]
+    Question2 -->|No, just questions| Chat[✅ Use CHAT Mode]
+
+    Question3 -->|Single file only| Question4{Inline diff preview?}
+    Question3 -->|Multiple files| Question5{Complex multi-step?}
+
+    Question4 -->|Yes, show me diffs| Edit[✅ Use EDIT Mode]
+    Question4 -->|No, chat is fine| Chat
+
+    Question5 -->|Yes, autonomous work| Agent[✅ Use AGENT Mode]
+    Question5 -->|No, I'll guide it| Question6{Want to explore first?}
+
+    Question6 -->|Yes, plan first| Plan
+    Question6 -->|No, let's chat| Chat
+
+    style Plan fill:#9333EA,color:#fff
+    style Chat fill:#3B82F6,color:#fff
+    style Edit fill:#10B981,color:#fff
+    style Agent fill:#F59E0B,color:#fff
+```
+
+---
+
+## 🤖 Mode Comparison Matrix
+
+| Feature | Chat | Edit | Agent | Plan |
+|---------|------|------|-------|------|
+| **Answer Questions** | ✅ Primary | ❌ No | ✅ Yes | ✅ Yes |
+| **Read Files** | ✅ Yes | ⚠️ Current only | ✅ Yes | ✅ Yes |
+| **Modify Files** | ⚠️ Via apply | ✅ Primary | ✅ Yes | ❌ Read-only |
+| **Create Files** | ❌ No | ❌ No | ✅ Yes | ❌ Read-only |
+| **Run Commands** | ❌ No | ❌ No | ✅ Yes | ❌ Read-only |
+| **Multi-Step Tasks** | ⚠️ Manual | ❌ No | ✅ Autonomous | ✅ Planning |
+| **Inline Diff** | ❌ No | ✅ Yes | ❌ No | ❌ No |
+| **Safe Exploration** | ✅ Yes | ❌ Makes changes | ❌ Makes changes | ✅ Read-only |
+| **Context Providers** | ✅ 30+ | ✅ Available | ✅ 30+ | ✅ 30+ |
+| **Best For** | Questions, explanations | Quick edits, refactoring | Complex tasks, automation | Exploring, planning |
+
+---
+
+## 🧭 Task-to-Mode Mapping
+
+```mermaid
+graph LR
+    subgraph "🐛 Debugging"
+        D1[Understand Error] --> Chat
+        D2[Fix Error] --> Edit
+        D3[Debug Complex Issue] --> Agent
+        D4[Investigate Bug] --> Plan
+    end
+
+    subgraph "✅ Testing"
+        T1[Ask About Tests] --> Chat
+        T2[Generate Tests] --> Agent
+        T3[Fix One Test] --> Edit
+        T4[Plan Test Strategy] --> Plan
+    end
+
+    subgraph "🔧 Refactoring"
+        R1[How to Refactor?] --> Chat
+        R2[Refactor Function] --> Edit
+        R3[Refactor Module] --> Agent
+        R4[Plan Refactor] --> Plan
+    end
+
+    subgraph "📝 Documentation"
+        Doc1[Explain Code] --> Chat
+        Doc2[Add Comments] --> Edit
+        Doc3[Generate Docs] --> Agent
+        Doc4[Plan Doc Strategy] --> Plan
+    end
+```
+
+---
+
+## 🎓 When to Use Each Mode
+
+### 💬 Use CHAT when:
+
+```mermaid
+mindmap
+  root((CHAT))
+    Questions
+      How does this work?
+      What's the best approach?
+      Explain this algorithm
+    Code Review
+      Review my changes
+      Security audit
+      Performance analysis
+    Learning
+      Understand codebase
+      Learn framework
+      Best practices
+    Planning
+      Architecture discussion
+      Design patterns
+      API design
+```
+
+**Real Examples:**
+- "Explain what this function does"
+- "Review this PR for security issues"
+- "What's the best way to handle errors here?"
+- "Help me understand this architecture"
+
+---
+
+### ✏️ Use EDIT when:
+
+```mermaid
+mindmap
+  root((EDIT))
+    Quick Changes
+      Add comments
+      Rename variables
+      Fix typos
+      Update strings
+    Refactoring
+      Extract function
+      Simplify logic
+      Improve readability
+      Add types
+    Small Fixes
+      Fix bug in function
+      Add validation
+      Update import
+      Adjust styling
+```
+
+**Real Examples:**
+- "Add JSDoc comments to this function"
+- "Refactor this to use async/await"
+- "Fix the type error on line 42"
+- "Extract this repeated code into a utility"
+
+---
+
+### 🤖 Use AGENT when:
+
+```mermaid
+mindmap
+  root((AGENT))
+    Multi-File Tasks
+      Generate tests
+      Create components
+      Refactor module
+      Update dependencies
+    Automation
+      Run tests
+      Fix errors
+      Generate docs
+      Setup config
+    Complex Workflows
+      Implement feature
+      Debug across files
+      Migrate code
+      Scaffold project
+```
+
+**Real Examples:**
+- "Generate unit tests for all functions in this module"
+- "Implement user authentication with JWT"
+- "Migrate all class components to functional components"
+- "Create a new API endpoint with tests and docs"
+
+---
+
+### 🔍 Use PLAN when:
+
+```mermaid
+mindmap
+  root((PLAN))
+    Exploration
+      Navigate codebase
+      Find patterns
+      Understand flow
+      Locate code
+    Investigation
+      Root cause analysis
+      Impact assessment
+      Dependency check
+      Code audit
+    Safe Planning
+      Prototype ideas
+      Estimate changes
+      Review before edit
+      Learn structure
+```
+
+**Real Examples:**
+- "Show me how authentication works in this app"
+- "Find all places where this API is called"
+- "What would break if I change this interface?"
+- "Help me understand the data flow"
+
+---
+
+## 🧩 Context Provider Selection Guide
+
+```mermaid
+graph TD
+    Start[What context do you need?] --> Type{Context Type?}
+
+    Type -->|Code| CodeContext
+    Type -->|Development| DevContext
+    Type -->|External| ExternalContext
+    Type -->|IDE| IDEContext
+
+    CodeContext --> C1[@File - Specific files]
+    CodeContext --> C2[@Folder - Directory contents]
+    CodeContext --> C3[@Codebase - Search codebase]
+    CodeContext --> C4[@Code - Highlighted selection]
+
+    DevContext --> D1[@Terminal - Command output]
+    DevContext --> D2[@Diff - Recent changes]
+    DevContext --> D3[@Commits - Git history]
+    DevContext --> D4[@Problems - IDE errors]
+
+    ExternalContext --> E1[@Docs - Documentation]
+    ExternalContext --> E2[@URL - Web pages]
+    ExternalContext --> E3[@Database - DB queries]
+    ExternalContext --> E4[@MCP - Custom tools]
+
+    IDEContext --> I1[@CurrentFile - Active file]
+    IDEContext --> I2[@Clipboard - Copied text]
+    IDEContext --> I3[@Debugger - Debug info]
+    IDEContext --> I4[@Open - All open files]
+
+    style C1 fill:#3B82F6,color:#fff
+    style C2 fill:#3B82F6,color:#fff
+    style C3 fill:#3B82F6,color:#fff
+    style C4 fill:#3B82F6,color:#fff
+
+    style D1 fill:#10B981,color:#fff
+    style D2 fill:#10B981,color:#fff
+    style D3 fill:#10B981,color:#fff
+    style D4 fill:#10B981,color:#fff
+
+    style E1 fill:#F59E0B,color:#fff
+    style E2 fill:#F59E0B,color:#fff
+    style E3 fill:#F59E0B,color:#fff
+    style E4 fill:#F59E0B,color:#fff
+
+    style I1 fill:#9333EA,color:#fff
+    style I2 fill:#9333EA,color:#fff
+    style I3 fill:#9333EA,color:#fff
+    style I4 fill:#9333EA,color:#fff
+```
+
+---
+
+## 🏗️ Continue Architecture
+
+```mermaid
+graph TB
+    subgraph "Your IDE"
+        VSCode[VS Code Extension]
+        JetBrains[JetBrains Plugin]
+        CLI[Continue CLI]
+    end
+
+    subgraph "Continue Core"
+        Core[Continue Core Engine]
+        Context[Context Manager]
+        Config[Configuration]
+    end
+
+    subgraph "AI Models"
+        Chat[Chat Models]
+        Autocomplete[Autocomplete Models]
+        Embed[Embedding Models]
+        Rerank[Reranking Models]
+    end
+
+    subgraph "Context Sources"
+        Code[Code Files]
+        Docs[Documentation]
+        Web[Web/URLs]
+        DB[Databases]
+        MCP[MCP Servers]
+    end
+
+    subgraph "Continue Hub"
+        Assistants[Assistants]
+        Blocks[Blocks]
+        Shared[Shared Config]
+    end
+
+    VSCode --> Core
+    JetBrains --> Core
+    CLI --> Core
+
+    Core --> Context
+    Core --> Config
+    Core --> Chat
+    Core --> Autocomplete
+    Core --> Embed
+    Core --> Rerank
+
+    Context --> Code
+    Context --> Docs
+    Context --> Web
+    Context --> DB
+    Context --> MCP
+
+    Config --> Hub
+    Hub --> Assistants
+    Hub --> Blocks
+    Hub --> Shared
+
+    style Core fill:#9333EA,color:#fff
+    style Hub fill:#F59E0B,color:#fff
+```
+
+---
+
+## 🎯 Model Selection Decision Tree
+
+```mermaid
+graph TD
+    Start[Choose Your Model] --> Budget{What's your budget?}
+
+    Budget -->|Free/Low Cost| Free
+    Budget -->|Moderate| Moderate
+    Budget -->|Premium| Premium
+
+    Free --> Free1{Local or Cloud?}
+    Free1 -->|Local| Ollama[Ollama<br/>llama3, codellama]
+    Free1 -->|Cloud| FreeTrial[Continue Free Trial<br/>Claude Sonnet]
+
+    Moderate --> Moderate1{Use Case?}
+    Moderate1 -->|Chat/Agent| DeepSeek[DeepSeek<br/>Fast & Affordable]
+    Moderate1 -->|Autocomplete| Codestral[Codestral<br/>Code Specialized]
+
+    Premium --> Premium1{Need Best Quality?}
+    Premium1 -->|Yes| Claude[Claude Sonnet 3.5<br/>Best Reasoning]
+    Premium1 -->|Fast Responses| GPT4[GPT-4o<br/>Quick & Good]
+
+    Ollama --> Configure[Configure in<br/>config.yaml]
+    FreeTrial --> Configure
+    DeepSeek --> Configure
+    Codestral --> Configure
+    Claude --> Configure
+    GPT4 --> Configure
+
+    style Ollama fill:#10B981,color:#fff
+    style FreeTrial fill:#3B82F6,color:#fff
+    style DeepSeek fill:#F59E0B,color:#000
+    style Codestral fill:#F59E0B,color:#000
+    style Claude fill:#9333EA,color:#fff
+    style GPT4 fill:#9333EA,color:#fff
+```
+
+---
+
+## 📊 Hub vs Local Assistant
+
+```mermaid
+graph LR
+    Question[Choose Assistant Type] --> Need{What do you need?}
+
+    Need -->|Team Sharing| Hub1[Use Hub Assistant]
+    Need -->|Privacy| Local1[Use Local Assistant]
+    Need -->|Sync Across Devices| Hub1
+    Need -->|Complete Control| Local1
+    Need -->|Easy Setup| Hub1
+    Need -->|Custom Everything| Local1
+
+    Hub1 --> HubFeatures[Hub Features:<br/>- Cloud synced<br/>- Team sharing<br/>- Easy updates<br/>- Governance]
+
+    Local1 --> LocalFeatures[Local Features:<br/>- Full privacy<br/>- Custom config<br/>- Git versioned<br/>- No internet needed]
+
+    HubFeatures --> Choose[You can use both!]
+    LocalFeatures --> Choose
+
+    style Hub1 fill:#3B82F6,color:#fff
+    style Local1 fill:#10B981,color:#fff
+```
+
+---
+
+## 🔄 Development Workflow with Continue
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant IDE as IDE
+    participant Continue as Continue
+    participant AI as AI Model
+
+    Dev->>IDE: Write code
+    Continue->>Dev: Autocomplete suggestions
+
+    Dev->>Continue: Ask question (Chat)
+    Continue->>AI: Send prompt + context
+    AI->>Continue: Response
+    Continue->>Dev: Display answer
+
+    Dev->>Continue: Request change (Edit)
+    Continue->>AI: Send edit request
+    AI->>Continue: Proposed changes
+    Continue->>Dev: Show diff
+    Dev->>IDE: Accept changes
+
+    Dev->>Continue: Complex task (Agent)
+    Continue->>AI: Task + tools
+    AI->>Continue: Step 1: Read files
+    Continue->>Continue: Execute tool
+    AI->>Continue: Step 2: Make changes
+    Continue->>Dev: Request permission
+    Dev->>Continue: Approve
+    Continue->>IDE: Apply changes
+    Continue->>Dev: Task complete
+```
+
+---
+
+## 🎯 Quick Decision Matrix
+
+### By Time Available
+
+| Time | Recommended Mode | Why |
+|------|-----------------|-----|
+| < 30 seconds | **Autocomplete** | Get inline suggestions as you type |
+| 30 sec - 2 min | **Chat** | Quick questions and explanations |
+| 2 - 5 min | **Edit** | Fast targeted changes to single file |
+| 5 - 15 min | **Agent** | Multi-step tasks, file creation, automation |
+| 15+ min | **Plan then Agent** | Explore first, then execute |
+
+### By Expertise Level
+
+| Level | Start With | Why |
+|-------|-----------|-----|
+| **Beginner** | Chat + Edit | Learn with questions, make simple changes |
+| **Intermediate** | All modes | Experiment with Agent for bigger tasks |
+| **Advanced** | Plan + Agent | Efficient exploration and execution |
+
+### By Safety Requirements
+
+| Safety Need | Use Mode | Reason |
+|-------------|---------|---------|
+| **Read-only exploration** | Plan | Can't modify anything |
+| **Review before changes** | Edit | Shows diff preview |
+| **Reversible changes** | Any mode + Git | Can always revert |
+| **Autonomous workflow** | Agent | Need to trust and review after |
+
+---
+
+## 📈 Complexity Scale
+
+```mermaid
+graph LR
+    subgraph "Increasing Complexity →"
+        A[Autocomplete<br/>Single line] --> B[Edit<br/>Single file]
+        B --> C[Chat<br/>Discussion]
+        C --> D[Agent<br/>Multi-file]
+        D --> E[Agent Workflow<br/>Complex project]
+    end
+
+    style A fill:#10B981,color:#fff
+    style B fill:#3B82F6,color:#fff
+    style C fill:#F59E0B,color:#000
+    style D fill:#EF4444,color:#fff
+    style E fill:#9333EA,color:#fff
+```
+
+---
+
+## 🔍 Context Provider Use Cases
+
+### Code Context
+
+```mermaid
+mindmap
+  root((Code Context))
+    @File
+      Reference specific file
+      Compare implementations
+      Show examples
+    @Folder
+      Analyze directory
+      Bulk operations
+      Project structure
+    @Codebase
+      Search entire project
+      Find patterns
+      Locate functionality
+    @Code
+      Highlighted selection
+      Current focus
+      Specific snippet
+```
+
+### Development Context
+
+```mermaid
+mindmap
+  root((Dev Context))
+    @Terminal
+      Command output
+      Error messages
+      Build logs
+    @Diff
+      Recent changes
+      What changed
+      Impact analysis
+    @Commits
+      Git history
+      Why changed
+      Author context
+    @Problems
+      IDE warnings
+      Lint errors
+      Type errors
+```
+
+### External Context
+
+```mermaid
+mindmap
+  root((External))
+    @Docs
+      Framework docs
+      API references
+      Best practices
+    @URL
+      Web content
+      Blog posts
+      Stack Overflow
+    @Database
+      Query data
+      Schema info
+      Sample records
+    @MCP
+      Custom tools
+      Third-party APIs
+      Extensions
+```
+
+---
+
+## 💡 Pro Tips
+
+<AccordionGroup>
+  <Accordion title="Combine Modes for Best Results">
+    **Workflow:** Plan → Chat → Edit/Agent
+
+    1. **Plan:** Explore and understand
+    2. **Chat:** Discuss approach
+    3. **Edit/Agent:** Implement changes
+
+    This gives you safety + discussion + execution.
+  </Accordion>
+
+  <Accordion title="Start Small, Scale Up">
+    - Begin with Chat for questions
+    - Move to Edit for small changes
+    - Graduate to Agent for complex tasks
+    - Use Plan when you need safety
+
+    Don't jump straight to Agent if you're new!
+  </Accordion>
+
+  <Accordion title="Layer Context Providers">
+    Combine multiple context sources:
+
+    ```
+    Review this change: @Diff
+    Considering: @Docs https://docs.example.com
+    In context of: @Codebase similar patterns
+    Against errors: @Problems
+    ```
+
+    More context = better results!
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 📚 Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Features Overview" icon="star" href="/features">
+    Detailed guide to each mode
+  </Card>
+  <Card title="Starter Prompts" icon="book-sparkles" href="/starter-prompts/overview">
+    Ready-to-use prompts for each mode
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/workflows/overview">
+    Complete workflows combining modes
+  </Card>
+  <Card title="Context Providers" icon="layer-group" href="/customize/context/overview">
+    Full list of context providers
+  </Card>
+</CardGroup>

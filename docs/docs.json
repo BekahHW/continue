@@ -87,6 +87,15 @@
             ]
           },
           {
+            "group": "Quick Resources",
+            "icon": "bolt",
+            "pages": [
+              "workflows/overview",
+              "starter-prompts/overview",
+              "assets/decision-flowcharts"
+            ]
+          },
+          {
             "group": "Help",
             "icon": "book-open",
             "pages": ["faqs", "troubleshooting"]
@@ -233,6 +242,32 @@
               },
               "hub/sharing",
               "hub/source-control"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Workflows",
+        "groups": [
+          {
+            "group": "Problem-Solving Workflows",
+            "icon": "diagram-project",
+            "pages": [
+              "workflows/overview",
+              "assets/decision-flowcharts"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Starter Prompts",
+        "groups": [
+          {
+            "group": "Ready-to-Use Prompts",
+            "icon": "book-sparkles",
+            "pages": [
+              "starter-prompts/overview",
+              "starter-prompts/debugging"
             ]
           }
         ]
